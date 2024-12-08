@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+</head>
+<body>
+<nav>
+    <a href="/home">Home</a>
+    <a href="/book-catalog">Book Catalog</a>
+    <a href="/user-catalog">User Catalog</a>
+    <a href="/borrow-history">Borrow History</a>
+    <a href="/add-book">Add Book</a>
+    <a href="/add-user">Add User</a>
+</nav>
+
+<div class="container">
+    <h1>Add New Book</h1>
+
+    <form method="POST" action="/add-book">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" required>
+        </div>
+
+        <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <input type="text" id="isbn" name="isbn" required>
+        </div>
+
+        <div class="form-group">
+            <label for="publication_year">Publication Year</label>
+            <input type="number" id="publication_year" name="publication_year" required>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <select id="genre" name="genre" required>
+                <option value="">--Select Genre--</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Romance">Romance</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Non-Fiction">Non-Fiction</option>
+                <option value="Biography">Biography</option>
+                <option value="History">History</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" required>
+        </div>
+
+        <button type="submit">Add Book</button>
+    </form>
+
+    <a href="/book-catalog" class="back-button">Back to Book Catalog</a>
+</div>
+
+</body>
+</html>
