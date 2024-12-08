@@ -4,6 +4,7 @@ hu/unideb/inf/library_app/data/entity/UserEntity.class
 hu/unideb/inf/library_app/controller/LoginController.class
 hu/unideb/inf/library_app/data/repository/LoginRepository.class
 hu/unideb/inf/library_app/data/entity/BookEntity.class
+hu/unideb/inf/library_app/controller/BookCatalogController.class
 hu/unideb/inf/library_app/data/entity/LoginEntity.class
 hu/unideb/inf/library_app/data/entity/BorrowEntity.class
 hu/unideb/inf/library_app/data/repository/BookRepository.class
