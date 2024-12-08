@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-size: 18px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<h2>Welcome to the Library</h2>
+
+<h2>Welcome, <span th:text="${username}"></span>!</h2>
+
+<p>What would you like to do today?</p>
 <ul>
     <li><a href="/book-catalog">Book Catalog</a></li>
     <li><a href="/user-catalog">User Catalog</a></li>
@@ -14,5 +42,6 @@
     <li><a href="/add-book">Add Book</a></li>
     <li><a href="/add-user">Add User</a></li>
 </ul>
+
 </body>
 </html>

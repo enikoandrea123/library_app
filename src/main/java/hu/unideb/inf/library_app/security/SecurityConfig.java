@@ -22,9 +22,13 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form ->
-                        form.permitAll()
-                );
-
+                        form
+                                .loginPage("/login")
+                                .permitAll()
+                                .defaultSuccessUrl("/home", true)
+                )
+                .logout()
+                .permitAll();
         return http.build();
     }
 
