@@ -23,7 +23,7 @@ public class BookEntity {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
     @Column(name = "publication_year", nullable = false)
-    private Date publicationYear;
+    private Integer publicationYear;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -84,11 +84,11 @@ public class BookEntity {
         this.quantity = quantity;
     }
 
-    public Date getPublicationYear() {
+    public Integer getPublicationYear() {
         return publicationYear;
     }
 
-    public void setPublicationYear(Date publicationYear) {
+    public void setPublicationYear(Integer publicationYear) {
         this.publicationYear = publicationYear;
     }
 
