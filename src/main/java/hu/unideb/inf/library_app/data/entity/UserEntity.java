@@ -1,13 +1,14 @@
 package hu.unideb.inf.library_app.data.entity;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user")
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -20,17 +21,11 @@ public class UserEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public UserEntity() {
+    @ManyToMany(mappedBy = "users")
+    private List<BookEntity> books;
 
-    }
-
-    public UserEntity(long id, String name, Date birthdate, String email, String phoneNumber) {
-        this.id = id;
-        this.name = name;
-        this.birthdate = birthdate;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<BorrowEntity> borrows;
 
     public long getId() {
         return id;
@@ -70,6 +65,22 @@ public class UserEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<BookEntity> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<BookEntity> books) {
+        this.books = books;
+    }
+
+    public List<BorrowEntity> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(List<BorrowEntity> borrows) {
+        this.borrows = borrows;
     }
 
     @Override

@@ -1,9 +1,8 @@
 package hu.unideb.inf.library_app.data.entity;
 
 import jakarta.persistence.*;
-
-import javax.lang.model.element.Name;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,19 +25,16 @@ public class BookEntity {
     @Column(name = "publication_year", nullable = false)
     private Date publicationYear;
 
-    public BookEntity() {
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "books_users",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    private List<UserEntity> users;
 
-    }
-
-    public BookEntity(long id, String title, String author, Integer isbn, String genre, Integer quantity, Date publicationYear) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-        this.genre = genre;
-        this.quantity = quantity;
-        this.publicationYear = publicationYear;
-    }
+    @OneToMany(mappedBy = "book")
+    private List<BorrowEntity> borrows;
 
     public long getId() {
         return id;
@@ -96,6 +92,21 @@ public class BookEntity {
         this.publicationYear = publicationYear;
     }
 
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserEntity> users) {
+        this.users = users;
+    }
+
+    public List<BorrowEntity> getBorrows() {
+        return borrows;
+    }
+
+    public void setBorrows(List<BorrowEntity> borrows) {
+        this.borrows = borrows;
+    }
 
     @Override
     public boolean equals(Object o) {
