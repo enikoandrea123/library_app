@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/home}">Home</a>
+    <a th:href="@{/book-catalog}">Book Catalog</a>
+    <a th:href="@{/user-catalog}">User Catalog</a>
+    <a th:href="@{/borrow-history}">Borrowed Books</a>
+    <a th:href="@{/add-book}">Add Book</a>
+    <a th:href="@{/add-user}">Add User</a>
+    <li>Log Out</li>
+
+</nav>
+
+<div class="container">
+    <h1>Edit Book</h1>
+
+    <form th:action="@{'/edit-book/' + ${book.id}}" th:object="${book}" method="post">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" id="author" th:field="*{author}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" th:field="*{isbn}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" th:field="*{quantity}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="publicationYear">Publication Year:</label>
+            <input type="number" id="publicationYear" th:field="*{publicationYear}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Genre:</label>
+            <select id="genre" th:field="*{genre}" required>
+                <option value="">--Select Genre--</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Romance">Romance</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Fantasy">Fantasy</option>
+            </select>
+        </div>
+
+        <button type="submit">Update Book</button>
+    </form>
+
+    <a th:href="@{/book-catalog}" class="back-button">Back to Catalog</a>
+</div>
+
+</body>
+</html>

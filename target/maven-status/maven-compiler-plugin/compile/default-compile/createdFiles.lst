@@ -1,4 +1,5 @@
 hu/unideb/inf/library_app/LibraryApp.class
+hu/unideb/inf/library_app/controller/UserCatalogController.class
 hu/unideb/inf/library_app/security/SecurityConfig.class
 hu/unideb/inf/library_app/data/entity/UserEntity.class
 hu/unideb/inf/library_app/controller/LoginController.class

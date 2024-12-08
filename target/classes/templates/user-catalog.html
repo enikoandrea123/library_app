@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Catalog</title>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/home}">Home</a>
+    <a th:href="@{/book-catalog}">Book Catalog</a>
+    <a th:href="@{/user-catalog}">User Catalog</a>
+    <a th:href="@{/borrow-history}">Borrowed Books</a>
+    <a th:href="@{/add-book}">Add Book</a>
+    <a th:href="@{/add-user}">Add User</a>
+</nav>
+
+<div class="container">
+    <h1>User Catalog</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Birthdate</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.birthdate}"></td>
+            <td class="action-buttons">
+                <a th:href="@{'/edit-user/' + ${user.id}}" class="edit-btn">Edit</a>
+                <a th:href="@{'/delete-user/' + ${user.id}}" class="delete-btn" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
