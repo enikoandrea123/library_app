@@ -1,2 +1,13 @@
-/Users/enikoandrea/Documents/library_app/src/main/java/hu/unideb/inf/library_app/LibraryApp.java
-/Users/enikoandrea/Documents/library_app/src/main/java/hu/unideb/inf/library_app/controller/LibraryController.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/LibraryApp.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/HomeController.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/LibraryController.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/LoginController.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/entity/BookEntity.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/entity/BorrowEntity.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/entity/LoginEntity.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/entity/UserEntity.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/BookRepository.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/BorrowRepository.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/LoginRepository.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/UserRepository.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/security/SecurityConfig.java

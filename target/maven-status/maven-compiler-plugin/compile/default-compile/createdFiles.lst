@@ -1,2 +1,13 @@
 hu/unideb/inf/library_app/LibraryApp.class
+hu/unideb/inf/library_app/security/SecurityConfig.class
+hu/unideb/inf/library_app/data/entity/UserEntity.class
+hu/unideb/inf/library_app/controller/LoginController.class
+hu/unideb/inf/library_app/data/repository/LoginRepository.class
+hu/unideb/inf/library_app/data/entity/BookEntity.class
+hu/unideb/inf/library_app/data/entity/LoginEntity.class
+hu/unideb/inf/library_app/data/entity/BorrowEntity.class
+hu/unideb/inf/library_app/data/repository/BookRepository.class
+hu/unideb/inf/library_app/data/repository/UserRepository.class
+hu/unideb/inf/library_app/data/repository/BorrowRepository.class
+hu/unideb/inf/library_app/controller/HomeController.class
 hu/unideb/inf/library_app/controller/LibraryController.class
