@@ -1,4 +1,5 @@
 hu/unideb/inf/library_app/LibraryApp.class
+hu/unideb/inf/library_app/controller/BorrowHistoryController.class
 hu/unideb/inf/library_app/security/SecurityConfig.class
 hu/unideb/inf/library_app/controller/LoginController.class
 hu/unideb/inf/library_app/controller/BookController.class
@@ -7,6 +8,7 @@ hu/unideb/inf/library_app/data/entity/BorrowEntity.class
 hu/unideb/inf/library_app/data/repository/BorrowRepository.class
 hu/unideb/inf/library_app/controller/UserController.class
 hu/unideb/inf/library_app/controller/UserCatalogController.class
+hu/unideb/inf/library_app/controller/BorrowController.class
 hu/unideb/inf/library_app/data/entity/UserEntity.class
 hu/unideb/inf/library_app/data/repository/LoginRepository.class
 hu/unideb/inf/library_app/data/entity/BookEntity.class

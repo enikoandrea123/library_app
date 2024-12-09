@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -17,7 +23,7 @@ public class UserController {
 
     @GetMapping("/add-user")
     public String showAddUserForm(Model model) {
-        return "add-user"; // The template name to render
+        return "add-user";
     }
 
     @PostMapping("/add-user")
@@ -25,16 +31,29 @@ public class UserController {
             @RequestParam String name,
             @RequestParam String birthdate,
             @RequestParam String email,
-            @RequestParam String phone_number
-    ) {
-        UserEntity newUser = new UserEntity();
-        newUser.setName(name);
-        newUser.setBirthdate(java.sql.Date.valueOf(birthdate));
-        newUser.setEmail(email);
-        newUser.setPhoneNumber(phone_number);
+            @RequestParam String phone_number,
+            Model model) {
 
-        userRepository.save(newUser);
+        Optional<UserEntity> existingUser = userRepository.findByEmail(email);
+        if (existingUser.isPresent()) {
+            model.addAttribute("error", "Email is already taken!");
+            return "add-user";
+        }
 
-        return "redirect:/user-catalog";
+        try {
+            LocalDate localBirthdate = LocalDate.parse(birthdate);
+            UserEntity newUser = new UserEntity();
+            newUser.setName(name);
+            newUser.setBirthdate(Date.valueOf(localBirthdate));
+            newUser.setEmail(email);
+            newUser.setPhoneNumber(phone_number);
+
+            userRepository.save(newUser);
+
+            return "redirect:/user-catalog";
+        } catch (Exception e) {
+            model.addAttribute("error", "Invalid date format. Please use YYYY-MM-DD.");
+            return "add-user";
+        }
     }
 }

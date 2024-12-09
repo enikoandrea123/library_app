@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Controller
 public class UserCatalogController {
 
@@ -23,18 +26,26 @@ public class UserCatalogController {
 
     @GetMapping("/edit-user/{id}")
     public String editUserForm(@PathVariable Long id, Model model) {
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
         model.addAttribute("user", user);
         return "edit-user";
     }
 
     @PostMapping("/edit-user/{id}")
     public String updateUser(@PathVariable Long id, UserEntity updatedUser) {
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
+
         user.setName(updatedUser.getName());
         user.setEmail(updatedUser.getEmail());
         user.setPhoneNumber(updatedUser.getPhoneNumber());
-        user.setBirthdate(updatedUser.getBirthdate());
+
+        if (updatedUser.getBirthdate() != null) {
+            user.setBirthdate(updatedUser.getBirthdate());
+        } else {
+        }
+
         userRepository.save(user);
         return "redirect:/user-catalog";
     }
