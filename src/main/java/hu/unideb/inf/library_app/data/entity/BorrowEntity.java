@@ -1,6 +1,8 @@
 package hu.unideb.inf.library_app.data.entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,17 +11,8 @@ import java.util.Objects;
 public class BorrowEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @Column(name = "borrow_date", nullable = false)
-    private Date borrowDate;
-
-    @Column(name = "due_date", nullable = false)
-    private Date dueDate;
-
-    @Column(name = "late_fee", nullable = false)
-    private Double lateFee;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
@@ -29,36 +22,21 @@ public class BorrowEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    public long getId() {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "borrow_date", nullable = false)
+    private Date borrowDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "due_date", nullable = false)
+    private Date dueDate;
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Date getBorrowDate() {
-        return borrowDate;
-    }
-
-    public void setBorrowDate(Date borrowDate) {
-        this.borrowDate = borrowDate;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public Double getLateFee() {
-        return lateFee;
-    }
-
-    public void setLateFee(Double lateFee) {
-        this.lateFee = lateFee;
     }
 
     public BookEntity getBook() {
@@ -77,15 +55,35 @@ public class BorrowEntity {
         this.user = user;
     }
 
+    public Date getBorrowDate() {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(Date borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof BorrowEntity that)) return false;
-        return id == that.id && Objects.equals(borrowDate, that.borrowDate) && Objects.equals(dueDate, that.dueDate) && Objects.equals(lateFee, that.lateFee);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(book, that.book) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(borrowDate, that.borrowDate) &&
+                Objects.equals(dueDate, that.dueDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, borrowDate, dueDate, lateFee);
+        return Objects.hash(id, book, user, borrowDate, dueDate);
     }
 }

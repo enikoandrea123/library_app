@@ -6,19 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 @Controller
+@RequestMapping("/borrow")
 public class BorrowHistoryController {
 
-    @Autowired
-    private BorrowRepository borrowRepository;
-
-    @GetMapping("/borrow-history")
+    @GetMapping("/history")
     public String viewBorrowHistory(Model model) {
-        model.addAttribute("borrowHistory", borrowRepository.findAll());
         return "borrow-history";
     }
 }

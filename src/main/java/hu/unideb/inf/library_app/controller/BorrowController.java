@@ -38,23 +38,29 @@ public class BorrowController {
         return "borrow-book";
     }
 
-    @PostMapping("/borrow")
-    public String borrowBook(@RequestParam Long bookId,
-                             @RequestParam Long userId,
-                             @RequestParam Date dueDate) {
-        BookEntity book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid book ID: " + bookId));
+    @GetMapping("/borrow-form")
+    public String showBorrowForm(Model model) {
+        model.addAttribute("borrow", new BorrowEntity());
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("books", bookRepository.findAll());
+        return "borrow-form";
+    }
 
-        UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + userId));
-
-        BorrowEntity borrow = new BorrowEntity();
-        borrow.setBook(book);
-        borrow.setUser(user);
-        borrow.setBorrowDate(Date.valueOf(LocalDate.now()));
-        borrow.setDueDate(dueDate);
-
+    @PostMapping("/borrow/add")
+    public String addBorrow(BorrowEntity borrow) {
         borrowRepository.save(borrow);
+
+        // Decrease the book quantity by 1
+        BookEntity book = borrow.getBook();
+        book.setQuantity(book.getQuantity() - 1);
+        bookRepository.save(book);
+
         return "redirect:/borrow-history";
+    }
+
+    @GetMapping("/borrow-history")
+    public String showBorrowHistory(Model model) {
+        model.addAttribute("borrows", borrowRepository.findAll());
+        return "borrow-history";
     }
 }
