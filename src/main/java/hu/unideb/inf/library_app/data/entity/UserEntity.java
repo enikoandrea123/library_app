@@ -1,6 +1,8 @@
 package hu.unideb.inf.library_app.data.entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +17,7 @@ public class UserEntity {
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "birthdate", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
     @Column(name = "email", nullable = false)
     private String email;

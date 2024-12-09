@@ -39,4 +39,22 @@ public class BookCatalogController {
         bookRepository.deleteById(id);
         return "redirect:/book-catalog";
     }
+
+    @PostMapping("/edit-book/{id}")
+    public String updateBook(@PathVariable Long id, BookEntity updatedBook) {
+        BookEntity existingBook = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book ID: " + id));
+
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setIsbn(updatedBook.getIsbn());
+        existingBook.setQuantity(updatedBook.getQuantity());
+        existingBook.setPublicationYear(updatedBook.getPublicationYear());
+        existingBook.setGenre(updatedBook.getGenre());
+
+        bookRepository.save(existingBook);
+
+        return "redirect:/book-catalog";
+    }
+
 }

@@ -1,0 +1,31 @@
+<!-- borrow-history.html -->
+<table>
+    <thead>
+    <tr>
+        <th>User Name</th>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+        <th>User ID</th>
+        <th>Borrow Date</th>
+        <th>Due Date</th>
+        <th>Late Fee</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="borrow : ${borrowHistory}">
+        <td th:text="${borrow.user.name}"></td>
+        <td th:text="${borrow.book.title}"></td>
+        <td th:text="${borrow.book.author}"></td>
+        <td th:text="${borrow.book.isbn}"></td>
+        <td th:text="${borrow.user.id}"></td>
+        <td th:text="${borrow.borrowDate}"></td>
+        <td th:text="${borrow.dueDate}"></td>
+        <td>
+            <span th:text="${#dates.format(borrow.dueDate, 'yyyy-MM-dd') != #dates.format(#temporals.now(), 'yyyy-MM-dd') ? 0 : #numbers.formatDecimal(#temporals.between(#temporals.now(), borrow.dueDate).days(), 0, '0')}"></span>
+        </td>
+        <td><a href="#">Return</a></td>
+    </tr>
+    </tbody>
+</table>
