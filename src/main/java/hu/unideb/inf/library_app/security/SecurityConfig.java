@@ -32,7 +32,12 @@ public class SecurityConfig {
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/public/home")
                                 .permitAll()
-                );
+                )
+                .exceptionHandling()
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.sendRedirect("/public/home");
+                });
+
         return http.build();
     }
 
