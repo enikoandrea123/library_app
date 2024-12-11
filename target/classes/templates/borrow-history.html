@@ -17,6 +17,29 @@
     </tr>
     </thead>
     <tbody>
+    <form th:action="@{/borrow/history}" method="get">
+        <div>
+            <label for="userName">User Name:</label>
+            <input type="text" id="userName" name="userName" th:value="${userName}">
+        </div>
+        <div>
+            <label for="bookTitle">Book Title:</label>
+            <input type="text" id="bookTitle" name="bookTitle" th:value="${bookTitle}">
+        </div>
+        <div>
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" name="isbn" th:value="${isbn}">
+        </div>
+        <div>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" th:value="${author}">
+        </div>
+        <div>
+            <label for="borrowDate">Borrow Date:</label>
+            <input type="date" id="borrowDate" name="borrowDate" th:value="${borrowDate}">
+        </div>
+        <button type="submit">Search</button>
+    </form>
     <tr th:each="borrow : ${borrows}">
         <td th:text="${borrow.user.name}"></td>
         <td th:text="${borrow.book.title}"></td>
