@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Public Book Catalog</title>
+</head>
+<body>
+<h2>Public Book Catalog</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>ISBN</th>
+        <th>Publication Year</th>
+        <th>Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <form method="get" th:action="@{/public/book-catalog}">
+        <div>
+            <label for="genre">Genre:</label>
+            <select id="genre" name="genre">
+                <option value="">--Select Genre--</option>
+                <option value="Fiction" th:selected="${genre == 'Fiction'}">Fiction</option>
+                <option value="Romance" th:selected="${genre == 'Romance'}">Romance</option>
+                <option value="Science Fiction" th:selected="${genre == 'Science Fiction'}">Science Fiction</option>
+                <option value="Fantasy" th:selected="${genre == 'Fantasy'}">Fantasy</option>
+                <option value="Mystery" th:selected="${genre == 'Mystery'}">Mystery</option>
+                <option value="Thriller" th:selected="${genre == 'Thriller'}">Thriller</option>
+                <option value="Non-Fiction" th:selected="${genre == 'Non-Fiction'}">Non-Fiction</option>
+                <option value="Biography" th:selected="${genre == 'Biography'}">Biography</option>
+                <option value="History" th:selected="${genre == 'History'}">History</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" placeholder="Search by Author" th:value="${author}">
+        </div>
+
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Search by Title" th:value="${title}">
+        </div>
+
+        <div>
+            <label for="isbn">ISBN:</label>
+            <input type="number" id="isbn" name="isbn" placeholder="Search by ISBN" th:value="${isbn}">
+        </div>
+
+        <div>
+            <label for="year">Publication Year:</label>
+            <input type="number" id="year" name="year" placeholder="Search by Year" th:value="${year}">
+        </div>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.genre}"></td>
+        <td th:text="${book.isbn}"></td>
+        <td th:text="${book.publicationYear}"></td>
+        <td th:text="${book.quantity}"></td>
+    </tr>
+    </tbody>
+</table>
+<div th:if="${#lists.isEmpty(books)}">
+    <p>No books found matching the search criteria.</p>
+</div>
+<br/>
+<a th:href="@{/public/home}">Back to Home</a>
+</body>
+</html>

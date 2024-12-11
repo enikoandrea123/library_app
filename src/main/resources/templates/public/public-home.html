@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Public Home</title>
+</head>
+<body>
+<h1>Welcome to the Library</h1>
+<div>
+    <a th:href="@{/public/book-catalog}">
+        <button>View Book Catalog</button>
+    </a>
+    <a th:href="@{/login}">
+        <button>Librarian Login</button>
+    </a>
+</div>
+
+</body>
+</html>

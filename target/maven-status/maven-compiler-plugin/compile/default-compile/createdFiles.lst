@@ -3,6 +3,7 @@ hu/unideb/inf/library_app/controller/BorrowHistoryController.class
 hu/unideb/inf/library_app/security/SecurityConfig.class
 hu/unideb/inf/library_app/controller/LoginController.class
 hu/unideb/inf/library_app/controller/BookController.class
+hu/unideb/inf/library_app/controller/PublicController.class
 hu/unideb/inf/library_app/controller/BookCatalogController.class
 hu/unideb/inf/library_app/data/entity/BorrowEntity.class
 hu/unideb/inf/library_app/data/repository/BorrowRepository.class

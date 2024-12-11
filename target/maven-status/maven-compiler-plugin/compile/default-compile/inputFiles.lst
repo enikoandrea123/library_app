@@ -6,6 +6,7 @@
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/HomeController.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/LibraryController.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/LoginController.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/PublicController.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/UserCatalogController.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/controller/UserController.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/entity/BookEntity.java

@@ -43,6 +43,11 @@
     <li><a href="/add-user">Add User</a></li>
     <li><a href="/borrow-form">Borrow Book</a></li>
 </ul>
+<div>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
 
 </body>
 </html>

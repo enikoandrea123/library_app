@@ -50,6 +50,9 @@
     </tr>
     </tbody>
 </table>
+<div th:if="${#lists.isEmpty(borrows)}">
+    <p>No borrowing found matching the search criteria.</p>
+</div>
 <br/>
 <a href="/home">Back to Home</a>
 </body>
