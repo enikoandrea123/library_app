@@ -130,7 +130,7 @@
             transition: background-color 0.3s ease;
         }
 
-        .action-buttons a, .action-buttons button {
+        .return-btn {
             text-decoration: none;
             background-color: #ff9aa2;
             padding: 10px 15px;
@@ -144,17 +144,9 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        .action-buttons a:hover, .action-buttons button:hover {
+        .return-btn:hover {
             background-color: #ff7f7d;
             transform: scale(1.05);
-        }
-
-        .reset-btn {
-            background-color: #ffd3b6;
-        }
-
-        .reset-btn:hover {
-            background-color: #ffb7b2;
         }
 
 
@@ -180,39 +172,6 @@
 
 <h2>Borrow History</h2>
 
-<form method="get" th:action="@{/borrow/history}" id="search-form">
-    <div>
-        <label for="userName">User Name:</label>
-        <input type="text" id="userName" name="userName" th:value="${userName}">
-    </div>
-    <div>
-        <label for="bookTitle">Book Title:</label>
-        <input type="text" id="bookTitle" name="bookTitle" th:value="${bookTitle}">
-    </div>
-    <div>
-        <label for="isbn">ISBN:</label>
-        <input type="number" id="isbn" name="isbn" th:value="${isbn}">
-    </div>
-    <div>
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" th:value="${author}">
-    </div>
-    <div>
-        <label for="borrowDate">Borrow Date:</label>
-        <input type="date" id="borrowDate" name="borrowDate" th:value="${borrowDate}">
-    </div>
-    <div>
-        <label for="dueDate">Due Date:</label>
-        <input type="date" id="dueDate" name="dueDate" th:value="${dueDate}">
-    </div>
-    <button type="submit">Search</button>
-    <button type="button" class="reset-btn" onclick="resetPage()">Reset</button>
-</form>
-<script>
-    function resetPage() {
-        window.location.href = '/borrow-history';
-    }
-</script>
 <table>
     <thead>
     <tr>
@@ -245,7 +204,7 @@
 </table>
 
 <div th:if="${#lists.isEmpty(borrows)}">
-    <p>No borrowing found matching the search criteria.</p>
+    <p>No borrowing found.</p>
 </div>
 <script>
 
