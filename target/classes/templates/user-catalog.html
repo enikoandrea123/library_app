@@ -4,16 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Catalog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9aa2, #ffb7b2, #ffdac1);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ff7f7d;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #d94d4d;
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        form label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        form input, form select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        form button {
+            background-color: #ff9aa2;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+        }
+
+        form button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        table th {
+            background-color: #ffb7b2;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        table tr:hover {
+            background-color: #ffe5e5;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons a, .action-buttons button {
+            text-decoration: none;
+            background-color: #ff9aa2;
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-block;
+            margin: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .action-buttons a:hover, .action-buttons button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        .reset-btn {
+            background-color: #ffd3b6;
+        }
+
+        .reset-btn:hover {
+            background-color: #ffb7b2;
+        }
+
+        .borrow-register-btn {
+            background-color: #ffcccb;
+            margin-top: 20px;
+        }
+
+        .borrow-register-btn:hover {
+            background-color: #ff9aa2;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
 
 <nav>
-    <a th:href="@{/home}">Home</a>
-    <a th:href="@{/book-catalog}">Book Catalog</a>
-    <a th:href="@{/user-catalog}">User Catalog</a>
-    <a th:href="@{/borrow-history}">Borrowed Books</a>
-    <a th:href="@{/add-book}">Add Book</a>
-    <a th:href="@{/add-user}">Add User</a>
+    <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/book-catalog">Book Catalog</a></li>
+        <li><a href="/borrow-history">Borrow History</a></li>
+        <li><a href="/add-user">Add User</a></li>
+        <li><a href="/logout">Log Out</a></li>
+    </ul>
 </nav>
 
 <div class="container">

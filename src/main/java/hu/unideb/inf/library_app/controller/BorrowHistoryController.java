@@ -20,8 +20,6 @@ public class BorrowHistoryController {
     @Autowired
     private BorrowRepository borrowRepository;
 
-    @Autowired
-    private BookRepository bookRepository;
 
     @GetMapping("/history")
     public String viewBorrowHistory(
@@ -30,6 +28,7 @@ public class BorrowHistoryController {
             @RequestParam(name = "isbn", required = false) Integer isbn,
             @RequestParam(name = "author", required = false) String author,
             @RequestParam(name = "borrowDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date borrowDate,
+            @RequestParam(name = "dueDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dueDate,
             Model model) {
 
         List<BorrowEntity> borrows;
@@ -38,10 +37,11 @@ public class BorrowHistoryController {
                 (bookTitle == null || bookTitle.isEmpty()) &&
                 (isbn == null) &&
                 (author == null || author.isEmpty()) &&
-                (borrowDate == null)) {
+                (borrowDate == null) &&
+                (dueDate == null)) {
             borrows = borrowRepository.findAll();
         } else {
-            borrows = borrowRepository.findByFilters(userName, bookTitle, isbn, author, borrowDate);
+            borrows = borrowRepository.findByFilters(userName, bookTitle, isbn, author, borrowDate, dueDate);
         }
 
         model.addAttribute("borrows", borrows);
@@ -50,6 +50,7 @@ public class BorrowHistoryController {
         model.addAttribute("isbn", isbn);
         model.addAttribute("author", author);
         model.addAttribute("borrowDate", borrowDate);
+        model.addAttribute("dueDate", dueDate);
 
         return "borrow-history";
     }

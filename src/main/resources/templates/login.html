@@ -22,55 +22,71 @@
         }
 
         .login-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
             display: flex;
             flex-direction: column;
+            gap: 30px;
             align-items: center;
-            gap: 20px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         h2 {
             font-family: 'Lobster', cursive;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #6c757d;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         form {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
 
         label {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
             color: #555;
             text-align: left;
             width: 100%;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         input {
-            padding: 12px;
+            padding: 14px;
             font-size: 1rem;
             border-radius: 12px;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             width: 100%;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #ff7f7d;
+            box-shadow: 0 0 10px rgba(255, 127, 125, 0.6);
         }
 
         button {
             background-color: #ff9aa2;
-            padding: 12px;
-            font-size: 1.2rem;
+            padding: 14px;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #fff;
             border: none;
-            border-radius: 30px;
+            border-radius: 35px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
             width: 100%;
@@ -83,31 +99,51 @@
 
         .error-message {
             color: #d9534f;
-            font-size: 1rem;
+            font-size: 1.1rem;
             background-color: #f8d7da;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 12px;
             width: 100%;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         .back-button {
             background-color: #ff9aa2;
             padding: 12px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: #fff;
             border: none;
-            border-radius: 30px;
+            border-radius: 35px;
             cursor: pointer;
             text-decoration: none;
             width: 100%;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .back-button:hover {
             background-color: #ff7f7d;
             transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1.1rem;
+                padding: 12px;
+            }
+
+            .back-button {
+                font-size: 1.1rem;
+                padding: 12px;
+            }
         }
     </style>
 </head>

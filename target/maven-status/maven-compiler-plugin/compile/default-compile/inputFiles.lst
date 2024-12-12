@@ -16,5 +16,6 @@
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/BookRepository.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/BorrowRepository.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/LoginRepository.java
+/Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/PublicBookRepository.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/data/repository/UserRepository.java
 /Users/enikoandrea/Documents/library_app2/src/main/java/hu/unideb/inf/library_app/security/SecurityConfig.java

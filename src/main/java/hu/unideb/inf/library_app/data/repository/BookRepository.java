@@ -13,9 +13,9 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     @Query("SELECT b FROM BookEntity b " +
-            "WHERE (:genre IS NULL OR b.genre = :genre) " +
-            "AND (:author IS NULL OR LOWER(b.author)=:author) " +
-            "AND (:title IS NULL OR LOWER(b.title)=:title) " +
+            "WHERE (:genre IS NULL OR LOWER(b.genre) LIKE LOWER(CONCAT('%', :genre, '%'))) " +
+            "AND (:author IS NULL OR LOWER(b.author) LIKE LOWER(CONCAT('%', :author, '%'))) " +
+            "AND (:title IS NULL OR LOWER(b.title) LIKE LOWER(CONCAT('%', :title, '%'))) " +
             "AND (:isbn IS NULL OR b.isbn = :isbn) " +
             "AND (:year IS NULL OR b.publicationYear = :year)")
     List<BookEntity> findByFilters(@Param("genre") String genre,

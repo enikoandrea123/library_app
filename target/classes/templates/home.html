@@ -1,52 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9aa2, #ffdac1);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
+            text-align: center;
         }
+
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .home-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
         h2 {
-            color: #4CAF50;
+            font-family: 'Lobster', cursive;
+            font-size: 3rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
         }
+
+        p {
+            font-size: 1.3rem;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
         }
+
         li {
-            margin: 10px 0;
+            display: flex;
+            justify-content: center;
         }
-        a {
+
+        a, button {
             text-decoration: none;
-            color: #007BFF;
-            font-size: 18px;
+            background-color: #ff9aa2;
+            padding: 14px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        a:hover {
-            text-decoration: underline;
+
+        a:hover, button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .secondary-btn {
+            background-color: #ffb7b2;
+        }
+
+        .secondary-btn:hover {
+            background-color: #ff9aa2;
+        }
+
+        .logout-container {
+            margin-top: 30px;
+        }
+
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2.2rem;
+            }
+            p {
+                font-size: 1.1rem;
+            }
+            a, button {
+                font-size: 1.1rem;
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-<h2>Welcome, <span th:text="${username}"></span>!</h2>
+<div class="home-container">
+    <h2>Welcome, <span th:text="${username}"></span>!</h2>
 
-<p>What would you like to do today?</p>
-<ul>
-    <li><a href="/book-catalog">Book Catalog</a></li>
-    <li><a href="/user-catalog">User Catalog</a></li>
-    <li><a href="/borrow-history">Borrow History</a></li>
-    <li><a href="/add-book">Add Book</a></li>
-    <li><a href="/add-user">Add User</a></li>
-    <li><a href="/borrow-form">Borrow Book</a></li>
-</ul>
-<div>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+    <p>Choose an option from the list below:</p>
+
+    <ul>
+        <li><a th:href="@{/book-catalog}" class="secondary-btn">Book Catalog</a></li>
+        <li><a th:href="@{/user-catalog}" class="secondary-btn">User Catalog</a></li>
+        <li><a th:href="@{/borrow-history}" class="secondary-btn">Borrow History</a></li>
+    </ul>
+
+    <div class="logout-container">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 </div>
 
 </body>

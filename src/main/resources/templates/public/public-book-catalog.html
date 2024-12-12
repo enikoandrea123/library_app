@@ -172,7 +172,7 @@
 
 <div class="content">
     <h2>Public Book Catalog</h2>
-    <form method="get" th:action="@{/public/book-catalog}">
+    <form method="get" th:action="@{/public/book-catalog}" id="search-form">
         <div>
             <label for="genre">Genre:</label>
             <select id="genre" name="genre">
@@ -210,10 +210,13 @@
         </div>
 
         <button type="submit">Search</button>
-        <!-- Reset Button -->
-        <button type="reset" class="reset-btn">Reset</button>
+        <button type="button" class="reset-btn" onclick="resetPage()">Reset</button>
     </form>
-
+    <script>
+        function resetPage() {
+            window.location.href = '/public/book-catalog';
+        }
+    </script>
     <table>
         <thead>
         <tr>

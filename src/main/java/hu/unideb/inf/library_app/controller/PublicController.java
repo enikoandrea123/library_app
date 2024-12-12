@@ -1,7 +1,7 @@
 package hu.unideb.inf.library_app.controller;
 
 import hu.unideb.inf.library_app.data.entity.BookEntity;
-import hu.unideb.inf.library_app.data.repository.BookRepository;
+import hu.unideb.inf.library_app.data.repository.PublicBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import java.util.List;
 public class PublicController {
 
     @Autowired
-    private BookRepository bookRepository;
+    private PublicBookRepository bookRepository;
 
     @GetMapping("/home")
     public String publicHome() {
@@ -35,6 +35,7 @@ public class PublicController {
         List<BookEntity> books;
         Integer isbn = null;
 
+
         if (isbnParam != null && !isbnParam.trim().isEmpty()) {
             try {
                 isbn = Integer.parseInt(isbnParam.trim());
@@ -45,15 +46,13 @@ public class PublicController {
             }
         }
 
-        if ((genre == null || genre.isEmpty()) &&
-                (author == null || author.isEmpty()) &&
-                (title == null || title.isEmpty()) &&
-                isbn == null &&
-                year == null) {
-            books = bookRepository.findAll();
-        } else {
-            books = bookRepository.findByFilters(genre, author, title, isbn, year);
-        }
+
+        if (author != null) author = author.trim().toLowerCase();
+        if (title != null) title = title.trim().toLowerCase();
+        if (genre != null) genre = genre.trim().toLowerCase();
+
+
+        books = bookRepository.findByPublicFilters(genre, author, title, isbn, year);
 
         model.addAttribute("books", books);
         model.addAttribute("genre", genre);

@@ -6,6 +6,7 @@ hu/unideb/inf/library_app/controller/BookController.class
 hu/unideb/inf/library_app/controller/PublicController.class
 hu/unideb/inf/library_app/controller/BookCatalogController.class
 hu/unideb/inf/library_app/data/entity/BorrowEntity.class
+hu/unideb/inf/library_app/data/repository/PublicBookRepository.class
 hu/unideb/inf/library_app/data/repository/BorrowRepository.class
 hu/unideb/inf/library_app/controller/UserController.class
 hu/unideb/inf/library_app/controller/UserCatalogController.class

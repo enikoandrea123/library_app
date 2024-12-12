@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Public Book Catalog</title>
     <style>
-        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -34,7 +33,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Table Styling */
+
         table {
             width: 100%;
             margin-top: 20px;
@@ -60,7 +59,7 @@
             transition: background-color 0.3s ease;
         }
 
-        /* Form Styling */
+
         form {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
@@ -123,7 +122,7 @@
             transform: scale(1.05);
         }
 
-        /* Interactive Content Box */
+
         .content {
             display: flex;
             flex-direction: column;
@@ -137,8 +136,8 @@
         }
 
         .content:hover {
-            transform: translateY(-10px);  /* Lifts the box */
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);  /* Darker shadow for lift effect */
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .content h1 {
@@ -146,7 +145,7 @@
             color: #ff6f61;
         }
 
-        /* Media Query for Responsiveness */
+
         @media (max-width: 768px) {
             table {
                 font-size: 0.9rem;
@@ -173,7 +172,7 @@
 
 <div class="content">
     <h2>Public Book Catalog</h2>
-    <form method="get" th:action="@{/public/book-catalog}">
+    <form method="get" th:action="@{/public/book-catalog}" id="search-form">
         <div>
             <label for="genre">Genre:</label>
             <select id="genre" name="genre">
@@ -211,10 +210,13 @@
         </div>
 
         <button type="submit">Search</button>
-        <!-- Reset Button -->
-        <button type="reset" class="reset-btn">Reset</button>
+        <button type="button" class="reset-btn" onclick="resetPage()">Reset</button>
     </form>
-
+    <script>
+        function resetPage() {
+            window.location.href = '/public/book-catalog';
+        }
+    </script>
     <table>
         <thead>
         <tr>

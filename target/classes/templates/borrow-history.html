@@ -1,11 +1,219 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borrow History</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9aa2, #ffb7b2, #ffdac1);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ff7f7d;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #d94d4d;
+            text-decoration: underline;
+        }
+
+        h2 {
+            font-family: 'Lobster', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        form label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        form input, form select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        form button {
+            background-color: #ff9aa2;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+        }
+
+        form button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        table th, table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        table th {
+            background-color: #ffb7b2;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        table tr:hover {
+            background-color: #ffe5e5;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons a, .action-buttons button {
+            text-decoration: none;
+            background-color: #ff9aa2;
+            padding: 10px 15px;
+            font-size: 1rem;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-block;
+            margin: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .action-buttons a:hover, .action-buttons button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        .reset-btn {
+            background-color: #ffd3b6;
+        }
+
+        .reset-btn:hover {
+            background-color: #ffb7b2;
+        }
+
+
+        p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+    </style>
 </head>
 <body>
+
+<nav>
+    <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/book-catalog">Book Catalog</a></li>
+        <li><a href="/user-catalog">User Catalog</a></li>
+        <li><a href="/borrow-form">Borrow Book</a></li>
+        <li><a href="/logout">Log Out</a></li>
+    </ul>
+</nav>
+
 <h2>Borrow History</h2>
-<table border="1">
+
+<form method="get" th:action="@{/borrow/history}" id="search-form">
+    <div>
+        <label for="userName">User Name:</label>
+        <input type="text" id="userName" name="userName" th:value="${userName}">
+    </div>
+    <div>
+        <label for="bookTitle">Book Title:</label>
+        <input type="text" id="bookTitle" name="bookTitle" th:value="${bookTitle}">
+    </div>
+    <div>
+        <label for="isbn">ISBN:</label>
+        <input type="number" id="isbn" name="isbn" th:value="${isbn}">
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" th:value="${author}">
+    </div>
+    <div>
+        <label for="borrowDate">Borrow Date:</label>
+        <input type="date" id="borrowDate" name="borrowDate" th:value="${borrowDate}">
+    </div>
+    <div>
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" name="dueDate" th:value="${dueDate}">
+    </div>
+    <button type="submit">Search</button>
+    <button type="button" class="reset-btn" onclick="resetPage()">Reset</button>
+</form>
+<script>
+    function resetPage() {
+        window.location.href = '/borrow-history';
+    }
+</script>
+<table>
     <thead>
     <tr>
         <th>User Name</th>
@@ -14,46 +222,65 @@
         <th>Author</th>
         <th>Borrow Date</th>
         <th>Due Date</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <form th:action="@{/borrow/history}" method="get">
-        <div>
-            <label for="userName">User Name:</label>
-            <input type="text" id="userName" name="userName" th:value="${userName}">
-        </div>
-        <div>
-            <label for="bookTitle">Book Title:</label>
-            <input type="text" id="bookTitle" name="bookTitle" th:value="${bookTitle}">
-        </div>
-        <div>
-            <label for="isbn">ISBN:</label>
-            <input type="text" id="isbn" name="isbn" th:value="${isbn}">
-        </div>
-        <div>
-            <label for="author">Author:</label>
-            <input type="text" id="author" name="author" th:value="${author}">
-        </div>
-        <div>
-            <label for="borrowDate">Borrow Date:</label>
-            <input type="date" id="borrowDate" name="borrowDate" th:value="${borrowDate}">
-        </div>
-        <button type="submit">Search</button>
-    </form>
     <tr th:each="borrow : ${borrows}">
         <td th:text="${borrow.user.name}"></td>
         <td th:text="${borrow.book.title}"></td>
         <td th:text="${borrow.book.isbn}"></td>
         <td th:text="${borrow.book.author}"></td>
-        <td th:text="${borrow.borrowDate}"></td>
-        <td th:text="${borrow.dueDate}"></td>
+        <td th:text="${#dates.format(borrow.borrowDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#dates.format(borrow.dueDate, 'yyyy-MM-dd')}"></td>
+        <td>
+            <button class="return-btn"
+                    th:data-borrow-id="${borrow.id}"
+                    th:data-book-id="${borrow.book.id}">
+                Return
+            </button>
+        </td>
     </tr>
     </tbody>
 </table>
+
 <div th:if="${#lists.isEmpty(borrows)}">
     <p>No borrowing found matching the search criteria.</p>
 </div>
+<script>
+
+    document.querySelectorAll('.return-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const borrowId = this.getAttribute('data-borrow-id');
+            const bookId = this.getAttribute('data-book-id');
+
+
+            fetch(`/borrow/return/${borrowId}/${bookId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.success) {
+
+                        alert("Book returned successfully!");
+                        location.reload();
+                    } else {
+                        alert("An error occurred while returning the book.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("There was an issue with the request.");
+                });
+        });
+    });
+</script>
+
 <br/>
-<a href="/home">Back to Home</a>
+
 </body>
 </html>

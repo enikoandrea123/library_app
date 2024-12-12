@@ -4,6 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9aa2, #ffb7b2, #ffdac1);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ff7f7d;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            color: #d94d4d;
+            text-decoration: underline;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff7f7d;
+            outline: none;
+        }
+
+        button {
+            background-color: #ff9aa2;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff9aa2;
+            padding: 12px;
+            border-radius: 30px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #ff7f7d;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        #phone_number {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        #phone_number:focus {
+            outline: none;
+            border-color: #ff7f7d;
+        }
+    </style>
 </head>
 <body>
 <nav>
@@ -11,14 +165,13 @@
     <a href="/book-catalog">Book Catalog</a>
     <a href="/user-catalog">User Catalog</a>
     <a href="/borrow-history">Borrow History</a>
-    <a href="/add-book">Add Book</a>
-    <a href="/add-user">Add User</a>
+    <a href="/logout">Log Out</a>
 </nav>
 
 <div class="container">
     <h1>Add New User</h1>
 
-    <form method="POST" action="/add-user">
+    <form method="POST" action="/add-user" id="add-user-form">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>
@@ -44,6 +197,47 @@
 
     <a href="/user-catalog" class="back-button">Back to User Catalog</a>
 </div>
+
+<script>
+    document.getElementById('add-user-form').addEventListener('submit', function(event) {
+        let valid = true;
+
+        const name = document.getElementById('name').value;
+        if (name.length > 50) {
+            valid = false;
+            alert("Name cannot exceed 50 characters.");
+        }
+
+        const email = document.getElementById('email').value;
+        if (email.length > 100) {
+            valid = false;
+            alert("Email cannot exceed 100 characters.");
+        }
+
+        const phoneNumber = document.getElementById('phone_number').value;
+        if (phoneNumber.length > 20) {
+            valid = false;
+            alert("Phone number cannot exceed 20 characters.");
+        }
+
+        const birthdate = new Date(document.getElementById('birthdate').value);
+        const today = new Date();
+        let age = today.getFullYear() - birthdate.getFullYear();
+        const month = today.getMonth();
+        if (month < birthdate.getMonth() || (month === birthdate.getMonth() && today.getDate() < birthdate.getDate())) {
+            age=age-1;
+        }
+
+        if (age < 16) {
+            valid = false;
+            alert("You must be at least 16 years old to register.");
+        }
+
+        if (!valid) {
+            event.preventDefault();
+        }
+    });
+</script>
 
 </body>
 </html>

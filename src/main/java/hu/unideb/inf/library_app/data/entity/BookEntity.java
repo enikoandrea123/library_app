@@ -36,6 +36,20 @@ public class BookEntity {
     @OneToMany(mappedBy = "book")
     private List<BorrowEntity> borrows;
 
+    public BookEntity() {
+
+    }
+
+    public BookEntity(long id, String title, String author, int isbn, String genre, Integer quantity, Integer publicationYear) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.genre = genre;
+        this.quantity = quantity;
+        this.publicationYear = publicationYear;
+    }
+
     public long getId() {
         return id;
     }
