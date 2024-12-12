@@ -4,6 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Book</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9aa2, #ffb7b2, #ffdac1);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ff7f7d;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            color: #d94d4d;
+            text-decoration: underline;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Lobster', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff7f7d;
+            outline: none;
+        }
+
+        button {
+            background-color: #ff9aa2;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff9aa2;
+            padding: 12px;
+            border-radius: 30px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 20px auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #ff7f7d;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+    </style>
 </head>
 <body>
 <nav>
@@ -11,23 +153,22 @@
     <a th:href="@{/book-catalog}">Book Catalog</a>
     <a th:href="@{/user-catalog}">User Catalog</a>
     <a th:href="@{/borrow-history}">Borrowed Books</a>
-    <a th:href="@{/add-book}">Add Book</a>
-    <a th:href="@{/add-user}">Add User</a>
+    <a href="/logout">Log Out</a>
     <li>Log Out</li>
 </nav>
 
 <div class="container">
     <h1>Edit Book</h1>
 
-    <form th:action="@{'/edit-book/' + ${book.id}}" th:object="${book}" method="post">
+    <form id="edit-book-form" th:action="@{'/edit-book/' + ${book.id}}" th:object="${book}" method="post">
         <div class="form-group">
             <label for="title">Title:</label>
-            <input type="text" id="title" th:field="*{title}" required>
+            <input type="text" id="title" th:field="*{title}" required maxlength="80">
         </div>
 
         <div class="form-group">
             <label for="author">Author:</label>
-            <input type="text" id="author" th:field="*{author}" required>
+            <input type="text" id="author" th:field="*{author}" required maxlength="80">
         </div>
 
         <div class="form-group">
@@ -67,5 +208,32 @@
     <a th:href="@{/book-catalog}" class="back-button">Back to Catalog</a>
 </div>
 
+<script>
+    document.getElementById("edit-book-form").addEventListener("submit", function(event) {
+        const isbn = document.getElementById("isbn").value;
+        const publicationYear = document.getElementById("publicationYear").value;
+        const quantity = document.getElementById("quantity").value;
+        const title = document.getElementById("title").value;
+        const author = document.getElementById("author").value;
+
+        if (publicationYear < 0 || publicationYear > 2024) {
+            event.preventDefault();
+            alert("Publication year must be between 0 and 2024.");
+            return;
+        }
+
+        if (quantity < 1) {
+            event.preventDefault();
+            alert("Quantity must be at least 1.");
+            return;
+        }
+
+        if (title.length > 80 || author.length > 80) {
+            event.preventDefault();
+            alert("Title and Author cannot exceed 80 characters.");
+            return;
+        }
+    });
+</script>
 </body>
 </html>

@@ -1,32 +1,204 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Borrow Book</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9aa2, #ffb7b2, #ffdac1);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ff7f7d;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            color: #d94d4d;
+            text-decoration: underline;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Lobster', cursive;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #ff7f7d;
+            outline: none;
+        }
+
+        button {
+            background-color: #ff9aa2;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<h2>Borrow a Book</h2>
-<form th:action="@{/borrow/add}" th:object="${borrow}" method="post">
-    <label for="user">Select User:</label>
-    <select id="user" th:field="*{user}" required>
-        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
-    </select>
-    <br/><br/>
 
-    <label for="book">Select Book:</label>
-    <select id="book" th:field="*{book}" required>
-        <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"></option>
-    </select>
-    <br/><br/>
+<nav>
+    <a th:href="@{/home}">Home</a>
+    <a th:href="@{/book-catalog}">Book Catalog</a>
+    <a th:href="@{/user-catalog}">User Catalog</a>
+    <a th:href="@{/borrow-history}">Borrowed Books</a>
+    <a href="/logout">Log Out</a>
+</nav>
 
-    <label for="borrowDate">Borrow Date:</label>
-    <input type="date" id="borrowDate" th:field="*{borrowDate}" required />
-    <br/><br/>
+<div class="container">
+    <h2>Borrow a Book</h2>
+    <form th:action="@{/borrow/add}" th:object="${borrow}" method="post" id="borrow-form">
+        <div class="form-group">
+            <label for="user">Select User:</label>
+            <select id="user" th:field="*{user}" required>
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+            </select>
+        </div>
 
-    <label for="dueDate">Due Date:</label>
-    <input type="date" id="dueDate" th:field="*{dueDate}" required />
-    <br/><br/>
+        <div class="form-group">
+            <label for="book">Select Book:</label>
+            <select id="book" th:field="*{book}" required>
+                <option th:each="book : ${books}"
+                        th:value="${book.id}"
+                        th:text="${book.title}"
+                        th:attr="data-quantity=${book.quantity}">
+                </option>
+            </select>
+        </div>
 
-    <button type="submit">Borrow Book</button>
-</form>
+        <div class="form-group">
+            <label for="borrowDate">Borrow Date:</label>
+            <input type="date" id="borrowDate" th:field="*{borrowDate}" required />
+        </div>
+
+        <div class="form-group">
+            <label for="dueDate">Due Date:</label>
+            <input type="date" id="dueDate" th:field="*{dueDate}" required />
+        </div>
+
+        <div class="error-message" id="error-message">This book is not available.</div>
+
+        <button type="submit">Borrow Book</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("borrow-form").addEventListener("submit", function(event) {
+        const bookSelect = document.getElementById("book");
+        const selectedOption = bookSelect.options[bookSelect.selectedIndex];
+        const quantity = parseInt(selectedOption.getAttribute("data-quantity"), 10);
+
+        const borrowDate = new Date(document.getElementById("borrowDate").value);
+        const dueDate = new Date(document.getElementById("dueDate").value);
+
+        const errorMessage = document.getElementById("error-message");
+
+        if (quantity <= 0) {
+            event.preventDefault();
+            errorMessage.textContent = "This book is not available.";
+            errorMessage.style.display = "block";
+            return;
+        } else {
+            errorMessage.style.display = "none";
+        }
+
+        if (borrowDate >= dueDate) {
+            event.preventDefault();
+            alert("Borrow date must be earlier than the due date.");
+        }
+    });
+</script>
+
 </body>
 </html>
