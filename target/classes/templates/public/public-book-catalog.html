@@ -1,22 +1,178 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Public Book Catalog</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f7f7;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9aa2, #ffdac1);
+            background-size: cover;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        h2 {
+            font-family: 'Lobster', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #6c757d;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff6f61;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #ffb7b2;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Form Styling */
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #ff9aa2;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff7f7d;
+            transform: scale(1.05);
+        }
+
+        .reset-btn {
+            background-color: #ffb7b2;
+            padding: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background-color: #ff9aa2;
+            transform: scale(1.05);
+        }
+
+        /* Interactive Content Box */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-10px);  /* Lifts the box */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);  /* Darker shadow for lift effect */
+        }
+
+        .content h1 {
+            margin-bottom: 20px;
+            color: #ff6f61;
+        }
+
+        /* Media Query for Responsiveness */
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.9rem;
+            }
+
+            .content {
+                width: 100%;
+                padding: 20px;
+            }
+
+            button {
+                font-size: 1rem;
+                padding: 10px;
+            }
+
+            .reset-btn {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h2>Public Book Catalog</h2>
-<table border="1">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Genre</th>
-        <th>ISBN</th>
-        <th>Publication Year</th>
-        <th>Quantity</th>
-    </tr>
-    </thead>
-    <tbody>
+
+<div class="content">
+    <h2>Public Book Catalog</h2>
     <form method="get" th:action="@{/public/book-catalog}">
         <div>
             <label for="genre">Genre:</label>
@@ -55,22 +211,42 @@
         </div>
 
         <button type="submit">Search</button>
+        <!-- Reset Button -->
+        <button type="reset" class="reset-btn">Reset</button>
     </form>
 
-    <tr th:each="book : ${books}">
-        <td th:text="${book.title}"></td>
-        <td th:text="${book.author}"></td>
-        <td th:text="${book.genre}"></td>
-        <td th:text="${book.isbn}"></td>
-        <td th:text="${book.publicationYear}"></td>
-        <td th:text="${book.quantity}"></td>
-    </tr>
-    </tbody>
-</table>
-<div th:if="${#lists.isEmpty(books)}">
-    <p>No books found matching the search criteria.</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>ISBN</th>
+            <th>Publication Year</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.genre}"></td>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.publicationYear}"></td>
+            <td th:text="${book.quantity}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${#lists.isEmpty(books)}">
+        <p>No books found matching the search criteria.</p>
+    </div>
+
+    <br/>
+
+    <a href="/public/home">
+        <button class="btn btn-primary">Back to Home</button>
+    </a>
 </div>
-<br/>
-<a th:href="@{/public/home}">Back to Home</a>
 </body>
 </html>
